@@ -38,6 +38,14 @@ type Student = {
   bed?: string;
 };
 
+type BedAllocation = { bed: string; student: string };
+type RoomAllocations = Record<string, BedAllocation[]>;
+type HostelAllocations = {
+  "Hostel A": RoomAllocations;
+  "Hostel B": RoomAllocations;
+  "Hostel C"?: RoomAllocations;
+};
+
 const dummyStudents: Student[] = [
   {
     id: "1",
@@ -57,7 +65,7 @@ const dummyStudents: Student[] = [
   },
 ];
 
-const dummyAllocations = {
+const dummyAllocations: HostelAllocations = {
   "Hostel A": {
     "Room 101": [
       { bed: "Bed 1", student: "Ravi Kumar" },
@@ -78,7 +86,8 @@ const dummyAllocations = {
 
 const HostelRoomAllocation = () => {
   const [students, setStudents] = React.useState<Student[]>(dummyStudents);
-  const [allocations, setAllocations] = React.useState(dummyAllocations);
+  const [allocations, setAllocations] =
+    React.useState<HostelAllocations>(dummyAllocations);
 
   const [assignModal, setAssignModal] = React.useState(false);
   const [swapModal, setSwapModal] = React.useState(false);
@@ -86,32 +95,46 @@ const HostelRoomAllocation = () => {
   const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(
     null
   );
-  const [selectedHostel, setSelectedHostel] = React.useState("Hostel A");
+  const [selectedHostel, setSelectedHostel] =
+    React.useState<keyof HostelAllocations>("Hostel A");
   const [swapSelection, setSwapSelection] = React.useState<string[]>([]);
+  const [selectedRoom, setSelectedRoom] = React.useState<string | null>(null);
+  const [selectedBed, setSelectedBed] = React.useState<string | null>(null);
 
   // Assign Room Handler
-  const handleAssignRoom = (room: string, bed: string) => {
-    if (!selectedStudent) return;
+  const handleAssignRoom = () => {
+    if (!selectedStudent || !selectedRoom || !selectedBed) return;
 
     setAllocations((prev) => {
-      const updated = { ...prev };
-      const beds = updated[selectedHostel][room];
-      const bedIndex = beds.findIndex((b) => b.bed === bed);
+      const updated: HostelAllocations = { ...prev };
+      const hostelRooms = updated[selectedHostel];
+
+      if (!hostelRooms) return prev; // safety check if optional hostel missing
+
+      const beds = hostelRooms[selectedRoom];
+      if (!beds) return prev; // safety check if room missing
+
+      const bedIndex = beds.findIndex((b) => b.bed === selectedBed);
       if (bedIndex !== -1) beds[bedIndex].student = selectedStudent.name;
+
       return updated;
     });
 
     setStudents((prev) =>
       prev.map((s) =>
         s.id === selectedStudent.id
-          ? { ...s, status: "Assigned", room, bed }
+          ? { ...s, status: "Assigned", room: selectedRoom, bed: selectedBed }
           : s
       )
     );
 
-    toast.success(`${selectedStudent.name} assigned to ${room} - ${bed}`);
+    toast.success(
+      `${selectedStudent.name} assigned to ${selectedRoom} - ${selectedBed}`
+    );
     setAssignModal(false);
     setSelectedStudent(null);
+    setSelectedRoom(null);
+    setSelectedBed(null);
   };
 
   // Swap Students Handler
@@ -120,16 +143,28 @@ const HostelRoomAllocation = () => {
     const [student1, student2] = swapSelection;
 
     setAllocations((prev) => {
-      const updated = { ...prev };
-      for (const hostel of Object.keys(updated)) {
-        for (const room of Object.keys(updated[hostel])) {
-          updated[hostel][room] = updated[hostel][room].map((b) => {
-            if (b.student === student1) return { ...b, student: student2 };
-            if (b.student === student2) return { ...b, student: student1 };
-            return b;
-          });
+      const updated: HostelAllocations = { ...prev };
+
+      (Object.keys(updated) as (keyof HostelAllocations)[]).forEach(
+        (hostelKey) => {
+          const hostelRooms = updated[hostelKey];
+          if (!hostelRooms) return; // safety check for optional hostel
+
+          (Object.keys(hostelRooms) as (keyof RoomAllocations)[]).forEach(
+            (roomKey) => {
+              const beds = hostelRooms[roomKey];
+              if (!beds) return; // safety check for undefined room
+
+              hostelRooms[roomKey] = beds.map((b) => {
+                if (b.student === student1) return { ...b, student: student2 };
+                if (b.student === student2) return { ...b, student: student1 };
+                return b;
+              });
+            }
+          );
         }
-      }
+      );
+
       return updated;
     });
 
@@ -142,33 +177,28 @@ const HostelRoomAllocation = () => {
     <div className="space-y-4">
       {/* Occupancy Dashboard */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>Hostel A</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm mb-2">120 / 150 occupied</p>
-            <Progress value={80} />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Hostel B</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm mb-2">95 / 100 occupied</p>
-            <Progress value={95} />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Hostel C</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm mb-2">50 / 80 occupied</p>
-            <Progress value={62} />
-          </CardContent>
-        </Card>
+        {(["Hostel A", "Hostel B", "Hostel C"] as const).map((hostel) => (
+          <Card key={hostel}>
+            <CardHeader>
+              <CardTitle>{hostel}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm mb-2">
+                {hostel === "Hostel A"
+                  ? "120 / 150"
+                  : hostel === "Hostel B"
+                  ? "95 / 100"
+                  : "50 / 80"}{" "}
+                occupied
+              </p>
+              <Progress
+                value={
+                  hostel === "Hostel A" ? 80 : hostel === "Hostel B" ? 95 : 62
+                }
+              />
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Pending Students Table */}
@@ -223,16 +253,23 @@ const HostelRoomAllocation = () => {
       <Card>
         <CardHeader className="flex justify-between items-center">
           <CardTitle>Current Allocations</CardTitle>
-          <Select value={selectedHostel} onValueChange={setSelectedHostel}>
+          <Select
+            value={selectedHostel}
+            onValueChange={(v) =>
+              setSelectedHostel(v as keyof HostelAllocations)
+            }
+          >
             <SelectTrigger className="w-40">
               <SelectValue placeholder="Select Hostel" />
             </SelectTrigger>
             <SelectContent>
-              {Object.keys(allocations).map((hostel) => (
-                <SelectItem key={hostel} value={hostel}>
-                  {hostel}
-                </SelectItem>
-              ))}
+              {(Object.keys(allocations) as (keyof HostelAllocations)[]).map(
+                (hostel) => (
+                  <SelectItem key={hostel} value={hostel}>
+                    {hostel}
+                  </SelectItem>
+                )
+              )}
             </SelectContent>
           </Select>
         </CardHeader>
@@ -247,7 +284,11 @@ const HostelRoomAllocation = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Object.entries(allocations[selectedHostel]).map(([room, beds]) =>
+              {(
+                Object.entries(
+                  allocations[selectedHostel] as RoomAllocations
+                ) as [string, BedAllocation[]][]
+              ).map(([room, beds]) =>
                 beds.map((b, idx) => (
                   <TableRow key={`${room}-${idx}`}>
                     <TableCell>{room}</TableCell>
@@ -295,23 +336,27 @@ const HostelRoomAllocation = () => {
       <Dialog open={assignModal} onOpenChange={setAssignModal}>
         <DialogContent className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-300 dark:border-gray-700 shadow-lg w-[90%] max-w-md p-6">
           <DialogHeader>
-            <DialogTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Assign Room
-            </DialogTitle>
+            <DialogTitle>Assign Room</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4">
-            <p className="text-gray-700 dark:text-gray-300">
+            <p>
               Assign <strong>{selectedStudent?.name}</strong> to a room:
             </p>
-
             <div className="flex gap-2 rounded-md">
-              <Select>
+              <Select
+                value={selectedRoom || ""}
+                onValueChange={(v) => setSelectedRoom(v)}
+              >
                 <SelectTrigger className="w-1/2">
                   <SelectValue placeholder="Select Room" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.keys(allocations[selectedHostel]).map((room) => (
+                  {(
+                    Object.keys(
+                      allocations[selectedHostel] as RoomAllocations
+                    ) as string[]
+                  ).map((room) => (
                     <SelectItem key={room} value={room}>
                       {room}
                     </SelectItem>
@@ -319,7 +364,10 @@ const HostelRoomAllocation = () => {
                 </SelectContent>
               </Select>
 
-              <Select>
+              <Select
+                value={selectedBed || ""}
+                onValueChange={(v) => setSelectedBed(v)}
+              >
                 <SelectTrigger className="w-1/2">
                   <SelectValue placeholder="Select Bed" />
                 </SelectTrigger>
@@ -336,8 +384,9 @@ const HostelRoomAllocation = () => {
               Cancel
             </Button>
             <Button
-              onClick={() => handleAssignRoom("Room 101", "Bed 1")}
+              onClick={handleAssignRoom}
               className="text-white bg-blue-600 hover:bg-blue-700"
+              disabled={!selectedRoom || !selectedBed}
             >
               Confirm
             </Button>
@@ -349,18 +398,15 @@ const HostelRoomAllocation = () => {
       <Dialog open={swapModal} onOpenChange={setSwapModal}>
         <DialogContent className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-300 dark:border-gray-700 shadow-lg w-[90%] max-w-md p-6">
           <DialogHeader>
-            <DialogTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Swap Students
-            </DialogTitle>
+            <DialogTitle>Swap Students</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4 mt-4">
-            <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
+            <p className="text-sm mb-2">
               Select exactly 2 students to swap their rooms/beds.
             </p>
-
             {swapSelection.length === 2 ? (
-              <p className="font-medium text-gray-900 dark:text-gray-100 text-lg">
+              <p className="font-medium text-lg">
                 {swapSelection[0]} ↔ {swapSelection[1]}
               </p>
             ) : (
