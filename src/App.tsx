@@ -36,6 +36,7 @@ import StudentNotices from "@/pages/student/StudentNotices";
 import StudentGrievance from "@/pages/student/StudentGrievance";
 import StudentCertificates from "@/pages/student/StudentCertificates";
 import StudentSettings from "@/pages/student/StudentSettings";
+import LandingPage from "./pages/LandingPage";
 
 const App = () => {
   // 🔹 Hostel Routes
@@ -92,6 +93,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<LandingPage/>} />
         {/* 🔹 Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
