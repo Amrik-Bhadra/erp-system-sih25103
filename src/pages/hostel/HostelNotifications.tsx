@@ -3,13 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  FileText,
-  AlertCircle,
-  Wrench,
-  LogOut,
-  Bell,
-} from "lucide-react";
+import { FileText, AlertCircle, Wrench, LogOut, Bell } from "lucide-react";
 
 const notifications = {
   all: [
@@ -95,7 +89,21 @@ const categories = [
   { key: "exit", label: "Exit Requests", icon: LogOut },
 ];
 
-const NotificationCard = ({ icon: Icon, message, action, time }) => (
+import type { ComponentType, SVGProps } from "react";
+
+export interface NotificationCardProps {
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  message: string;
+  action: string;
+  time: string;
+}
+
+const NotificationCard: React.FC<NotificationCardProps> = ({
+  icon: Icon,
+  message,
+  action,
+  time,
+}) => (
   <Card className="mb-3 shadow-sm hover:shadow-md transition rounded-xl">
     <CardContent className="flex items-center justify-between px-4">
       <div className="flex items-center space-x-3">
@@ -117,7 +125,6 @@ const NotificationCard = ({ icon: Icon, message, action, time }) => (
 const HostelNotifications = () => {
   return (
     <div className="">
-
       {/* Tabs for categories */}
       <Tabs defaultValue="all" className="w-full">
         <TabsList className="grid grid-cols-5 w-full mb-6">

@@ -66,7 +66,7 @@ const data: Occupancy[] = [
 ];
 
 // ----- Columns -----
-export const columns: ColumnDef<Occupancy>[] = [
+const columns: ColumnDef<Occupancy>[] = [
   {
     id: "select",
     header: ({ table }) => (

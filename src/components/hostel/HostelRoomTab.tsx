@@ -12,8 +12,24 @@ import {
 } from "@/components/ui/select";
 import { Plus, Save, Trash } from "lucide-react";
 
+// ✅ Define types
+type Room = {
+  no: string;
+  type: string;
+  capacity: number;
+  facilities: string;
+};
+
+type Hostel = {
+  name: string;
+  capacity: number;
+  floors: number;
+  warden: string;
+  rooms: Room[];
+};
+
 // 🔹 Mock hostel data
-const hostelData = {
+const hostelData: Record<string, Hostel> = {
   aryabhatta: {
     name: "Aryabhatta Hostel",
     capacity: 300,
@@ -42,12 +58,7 @@ const hostelData = {
     floors: 4,
     warden: "Mr. Reddy",
     rooms: [
-      {
-        no: "301",
-        type: "Double",
-        capacity: 2,
-        facilities: "AC, Wi-Fi, Heater",
-      },
+      { no: "301", type: "Double", capacity: 2, facilities: "AC, Wi-Fi, Heater" },
       { no: "302", type: "Double", capacity: 2, facilities: "Wi-Fi, Fan" },
       { no: "303", type: "Single", capacity: 1, facilities: "AC, Wi-Fi" },
     ],
@@ -91,26 +102,18 @@ const hostelData = {
     warden: "Mr. Joshi",
     rooms: [
       { no: "701", type: "Double", capacity: 2, facilities: "Wi-Fi, Fan" },
-      {
-        no: "702",
-        type: "Single",
-        capacity: 1,
-        facilities: "AC, Wi-Fi, Heater",
-      },
+      { no: "702", type: "Single", capacity: 1, facilities: "AC, Wi-Fi, Heater" },
       { no: "703", type: "Triple", capacity: 3, facilities: "Fan, Balcony" },
     ],
   },
 };
 
+// ✅ Hostel keys type
+type HostelKey = keyof typeof hostelData;
+
 export function HostelRoomsTab() {
-  const [selectedHostel, setSelectedHostel] = React.useState("aryabhatta");
-  const hostel = hostelData[selectedHostel] || {
-    name: "",
-    capacity: 0,
-    floors: 0,
-    warden: "",
-    rooms: [],
-  };
+  const [selectedHostel, setSelectedHostel] = React.useState<HostelKey>("aryabhatta");
+  const hostel: Hostel = hostelData[selectedHostel];
 
   return (
     <TabsContent value="hostel" className="space-y-3">
@@ -121,23 +124,17 @@ export function HostelRoomsTab() {
           {/* Hostel Dropdown */}
           <Select
             value={selectedHostel}
-            onValueChange={(val) => setSelectedHostel(val)}
+            onValueChange={(val) => setSelectedHostel(val as HostelKey)}
           >
             <SelectTrigger className="w-[220px]">
               <SelectValue placeholder="Select Hostel" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="aryabhatta">Aryabhatta Hostel</SelectItem>
-              <SelectItem value="gargi">Gargi Hostel</SelectItem>
-              <SelectItem value="vishveshwaraiya">
-                Vishveshwaraiya Hostel
-              </SelectItem>
-              <SelectItem value="kalpanaChawla">
-                Kalpana Chawla Hostel
-              </SelectItem>
-              <SelectItem value="cvRaman">C.V. Raman Hostel</SelectItem>
-              <SelectItem value="bhabha">Bhabha Hostel</SelectItem>
-              <SelectItem value="raman">Raman Hostel</SelectItem>
+              {Object.keys(hostelData).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {hostelData[key as HostelKey].name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </CardHeader>
@@ -147,7 +144,6 @@ export function HostelRoomsTab() {
               <label className="text-sm font-medium mb-1">Hostel Name</label>
               <Input placeholder="Hostel Name" value={hostel.name} readOnly />
             </div>
-
             <div className="flex flex-col">
               <label className="text-sm font-medium mb-1">Total Capacity</label>
               <Input
@@ -157,23 +153,15 @@ export function HostelRoomsTab() {
                 readOnly
               />
             </div>
-
             <div className="flex flex-col">
               <label className="text-sm font-medium mb-1">Floors</label>
-              <Input
-                placeholder="Floors"
-                type="number"
-                value={hostel.floors}
-                readOnly
-              />
+              <Input placeholder="Floors" type="number" value={hostel.floors} readOnly />
             </div>
-
             <div className="flex flex-col">
               <label className="text-sm font-medium mb-1">Warden Name</label>
               <Input placeholder="Warden Name" value={hostel.warden} readOnly />
             </div>
           </div>
-
           <Button className="mt-2 text-white">
             <Save className="w-4 h-4 mr-1" /> Save Changes
           </Button>
@@ -201,7 +189,7 @@ export function HostelRoomsTab() {
                 </tr>
               </thead>
               <tbody>
-                {hostel.rooms.map((room, idx) => (
+                {hostel.rooms.map((room: Room, idx: number) => (
                   <tr key={idx} className="border border-gray-100/15">
                     <td className="p-2">{room.no}</td>
                     <td className="p-2">{room.type}</td>

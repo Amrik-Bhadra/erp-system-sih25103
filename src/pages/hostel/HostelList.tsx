@@ -38,9 +38,21 @@ import { Label } from "@/components/ui/label";
 import { hostelList as initialHostels } from "@/utils/dataProvider";
 import type { Hostel } from "@/utils/dataProvider";
 
+export type ExitRequest = {
+  studentName: string;
+  enrollment: string;
+  hostel: string;
+  room: string;
+  bed: string;
+  exitDate: string;
+  roomDues: number;
+  fine: number;
+  otherDues: number;
+  totalDues: number;
+  status: "Pending" | "Approved" | "Rejected";
+};
 
-// ------------------ Columns Definition ------------------
-export const columns: ColumnDef<Hostel>[] = [
+const columns: ColumnDef<Hostel>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -69,7 +81,9 @@ export const columns: ColumnDef<Hostel>[] = [
         Hostel Name <ArrowUpDown className="h-4 w-4 ml-1" />
       </Button>
     ),
-    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <div className="font-medium">{row.getValue("name")}</div>
+    ),
   },
   {
     accessorKey: "capacity",
@@ -89,7 +103,7 @@ export const columns: ColumnDef<Hostel>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: () => {
       return (
         <div className="flex gap-2 justify-center">
           <Button size="sm" variant="outline">
@@ -192,7 +206,7 @@ const HostelList = () => {
                   type="number"
                   value={newHostel.capacity || ""}
                   onChange={(e) =>
-                    setNewHostel({ ...newHostel, capacity: e.target.value })
+                    setNewHostel({ ...newHostel, capacity: Number(e.target.value) })
                   }
                 />
               </div>
@@ -202,7 +216,7 @@ const HostelList = () => {
                   type="number"
                   value={newHostel.floors || ""}
                   onChange={(e) =>
-                    setNewHostel({ ...newHostel, floors: e.target.value })
+                    setNewHostel({ ...newHostel, floors: Number(e.target.value) })
                   }
                 />
               </div>
@@ -231,7 +245,9 @@ const HostelList = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button onClick={handleAddHostel} className="text-white">Save Hostel</Button>
+              <Button onClick={handleAddHostel} className="text-white">
+                Save Hostel
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -262,14 +278,20 @@ const HostelList = () => {
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No hostels found.
                 </TableCell>
               </TableRow>

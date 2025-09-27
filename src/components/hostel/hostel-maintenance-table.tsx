@@ -40,10 +40,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { hostelComplaints as data } from "@/utils/dataProvider"; // your complaints data
+import { hostelComplaints as data, type HostelComplaint } from "@/utils/dataProvider"; // your complaints data
 
 // ----- Columns Definition -----
-export const columns: ColumnDef<HostelComplaint>[] = [
+const columns: ColumnDef<HostelComplaint>[] = [
   {
     id: "select",
     header: ({ table }) => (

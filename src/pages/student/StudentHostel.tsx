@@ -37,9 +37,11 @@ import Image1 from "../../assets/images/hostel1-1.jpeg";
 import Image2 from "../../assets/images/hostel1-2.jpg";
 import Image3 from "../../assets/images/hostel1-3.jpg";
 
+import type { Hostel, Room } from "@/utils/types";
+
 const StudentHostel = () => {
-  const [selectedHostel, setSelectedHostel] = useState(null);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedHostel, setSelectedHostel] = useState<Hostel | null>(null);
+  const [selectedRoom,] = useState<Room | null>(null);
   const [selectedGender, setSelectedGender] = useState("All");
   const [selectedPrice, setSelectedPrice] = useState("All");
 

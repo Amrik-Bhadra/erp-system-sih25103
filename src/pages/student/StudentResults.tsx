@@ -25,7 +25,10 @@ const StudentResults = () => {
   );
 
   const [showDialog, setShowDialog] = useState(false);
-  const [analysisData, setAnalysisData] = useState<
+  // const [analysisData, setAnalysisData] = useState<
+  //   { browser: string; visitors: number; fill: string }[]
+  // >([]);
+  const [, setAnalysisData] = useState<
     { browser: string; visitors: number; fill: string }[]
   >([]);
   const [passFailData, setPassFailData] = useState<{

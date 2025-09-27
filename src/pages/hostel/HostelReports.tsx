@@ -1,8 +1,7 @@
-import * as React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+// import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { Download } from "lucide-react";
 import { HostelOccupancyTable } from "@/components/hostel/hostel-occupancy-table";
 import { PendingApplicationsTable } from "@/components/hostel/pending-application-table";
 import { MaintenanceTicketsTable } from "@/components/hostel/maintenance-ticket-table";
@@ -13,7 +12,8 @@ import { MaintenanceTicketsChart } from "@/components/hostel/maintenance-tickets
 import { RevenueCollectionChart } from "@/components/hostel/revenue-collection-chart";
 
 const HostelReports = () => {
-  const [searchText, setSearchText] = React.useState("");
+  // const [searchText,] = React.useState("");
+  // const [searchText, setSearchText] = React.useState("");
 
   return (
     <div className="space-y-6">
@@ -32,7 +32,7 @@ const HostelReports = () => {
             Hostel Occupancy Report
           </h2>
           {/* Table component */}
-          <HostelOccupancyTable searchText={searchText} />
+          <HostelOccupancyTable />
           <HostelOccupancyChart />
         </TabsContent>
 
@@ -41,7 +41,7 @@ const HostelReports = () => {
           <h2 className="text-lg font-semibold mb-4">
             Pending Applications & Allocations
           </h2>
-          <PendingApplicationsTable searchText={searchText} />
+          <PendingApplicationsTable />
           <PendingApplicationsChart />
         </TabsContent>
 
@@ -50,7 +50,7 @@ const HostelReports = () => {
           <h2 className="text-lg font-semibold mb-4">
             Maintenance Tickets & Resolution
           </h2>
-          <MaintenanceTicketsTable searchText={searchText} />
+          <MaintenanceTicketsTable />
           <MaintenanceTicketsChart />
         </TabsContent>
 
@@ -59,7 +59,7 @@ const HostelReports = () => {
           <h2 className="text-lg font-semibold mb-4">
             Revenue / Fine Collection
           </h2>
-          <RevenueCollectionTable searchText={searchText} />
+          <RevenueCollectionTable />
           <RevenueCollectionChart />
         </TabsContent>
       </Tabs>

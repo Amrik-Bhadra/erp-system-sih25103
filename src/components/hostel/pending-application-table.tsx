@@ -62,7 +62,7 @@ const data: Application[] = [
 ];
 
 // ----- Columns -----
-export const columns: ColumnDef<Application>[] = [
+const columns: ColumnDef<Application>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -111,7 +111,12 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status");
+      // Cast the unknown value to the correct type
+      const status = row.getValue("status") as
+        | "Pending"
+        | "Approved"
+        | "Rejected";
+
       return (
         <Badge variant={status === "Pending" ? "destructive" : "outline"}>
           {status}

@@ -66,14 +66,22 @@ const data: Maintenance[] = [
 ];
 
 // Status color mapping
-const statusColors: Record<string, string> = {
+// const statusColors: Record<string, string> = {
+//   Pending: "bg-yellow-100 text-yellow-800",
+//   "In-Progress": "bg-blue-100 text-blue-800",
+//   Resolved: "bg-green-100 text-green-800",
+// };
+
+type StatusType = "Pending" | "Approved" | "Rejected";
+
+const statusColors: Record<StatusType, string> = {
   Pending: "bg-yellow-100 text-yellow-800",
-  "In-Progress": "bg-blue-100 text-blue-800",
-  Resolved: "bg-green-100 text-green-800",
+  Approved: "bg-green-100 text-green-800",
+  Rejected: "bg-red-100 text-red-800",
 };
 
 // ----- Columns -----
-export const columns: ColumnDef<Maintenance>[] = [
+const columns: ColumnDef<Maintenance>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -127,7 +135,9 @@ export const columns: ColumnDef<Maintenance>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status");
+      // Cast the unknown value to StatusType
+      const status = row.getValue("status") as StatusType;
+
       return (
         <Badge variant="outline" className={statusColors[status]}>
           {status}

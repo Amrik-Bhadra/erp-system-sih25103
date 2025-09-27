@@ -1,5 +1,5 @@
 export type StudentApplication = {
-  id: string;
+  id: number;
   name: string;
   enrollment: string;
   roomType: string;
@@ -10,37 +10,38 @@ export type StudentApplication = {
 };
 
 export const studentApplication: StudentApplication[] = [
-  { id: "1", name: "Aarav Sharma", enrollment: "2025A001", roomType: "Single", quota: "General", year: "1st", suggestedBed: "Room 101", status: "Pending" },
-  { id: "2", name: "Priya Verma", enrollment: "2025B012", roomType: "Double", quota: "OBC", year: "2nd", suggestedBed: "Room 203", status: "Pending" },
-  { id: "3", name: "Rohan Gupta", enrollment: "2025C003", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 105", status: "Approved" },
-  { id: "4", name: "Ananya Singh", enrollment: "2025D004", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 210", status: "Rejected" },
-  { id: "5", name: "Ishaan Mehta", enrollment: "2025E005", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 112", status: "Waitlist" },
-  { id: "6", name: "Sanya Kapoor", enrollment: "2025F006", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 215", status: "Pending" },
-  { id: "7", name: "Vivaan Reddy", enrollment: "2025G007", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 120", status: "Approved" },
-  { id: "8", name: "Tanya Nair", enrollment: "2025H008", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 220", status: "Rejected" },
-  { id: "9", name: "Kabir Joshi", enrollment: "2025I009", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 125", status: "Pending" },
-  { id: "10", name: "Anika Choudhary", enrollment: "2025J010", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 225", status: "Approved" },
-  { id: "11", name: "Devanshi Saxena", enrollment: "2025K011", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 130", status: "Waitlist" },
-  { id: "12", name: "Arjun Mishra", enrollment: "2025L012", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 230", status: "Pending" },
-  { id: "13", name: "Riya Bhatia", enrollment: "2025M013", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 135", status: "Approved" },
-  { id: "14", name: "Shaurya Jain", enrollment: "2025N014", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 235", status: "Rejected" },
-  { id: "15", name: "Anshika Pandey", enrollment: "2025O015", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 140", status: "Pending" },
-  { id: "16", name: "Karan Thakur", enrollment: "2025P016", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 240", status: "Approved" },
-  { id: "17", name: "Sakshi Raina", enrollment: "2025Q017", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 145", status: "Waitlist" },
-  { id: "18", name: "Aditya Kulkarni", enrollment: "2025R018", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 245", status: "Pending" },
-  { id: "19", name: "Meera Sharma", enrollment: "2025S019", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 150", status: "Approved" },
-  { id: "20", name: "Raghav Bansal", enrollment: "2025T020", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 250", status: "Rejected" },
-  { id: "21", name: "Tanvi Joshi", enrollment: "2025U021", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 155", status: "Pending" },
-  { id: "22", name: "Vedant Desai", enrollment: "2025V022", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 255", status: "Approved" },
-  { id: "23", name: "Aisha Iyer", enrollment: "2025W023", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 160", status: "Waitlist" },
-  { id: "24", name: "Ishita Chatterjee", enrollment: "2025X024", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 260", status: "Pending" },
-  { id: "25", name: "Reyansh Singh", enrollment: "2025Y025", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 165", status: "Approved" },
-  { id: "26", name: "Nivedita Rao", enrollment: "2025Z026", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 265", status: "Rejected" },
-  { id: "27", name: "Devika Kapoor", enrollment: "2026A027", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 170", status: "Pending" },
-  { id: "28", name: "Aryan Malhotra", enrollment: "2026B028", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 270", status: "Approved" },
-  { id: "29", name: "Prisha Yadav", enrollment: "2026C029", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 175", status: "Waitlist" },
-  { id: "30", name: "Ritvik Nair", enrollment: "2026D030", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 275", status: "Pending" },
+  { id: 1, name: "Aarav Sharma", enrollment: "2025A001", roomType: "Single", quota: "General", year: "1st", suggestedBed: "Room 101", status: "Pending" },
+  { id: 2, name: "Priya Verma", enrollment: "2025B012", roomType: "Double", quota: "OBC", year: "2nd", suggestedBed: "Room 203", status: "Pending" },
+  { id: 3, name: "Rohan Gupta", enrollment: "2025C003", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 105", status: "Approved" },
+  { id: 4, name: "Ananya Singh", enrollment: "2025D004", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 210", status: "Rejected" },
+  { id: 5, name: "Ishaan Mehta", enrollment: "2025E005", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 112", status: "Waitlist" },
+  { id: 6, name: "Sanya Kapoor", enrollment: "2025F006", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 215", status: "Pending" },
+  { id: 7, name: "Vivaan Reddy", enrollment: "2025G007", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 120", status: "Approved" },
+  { id: 8, name: "Tanya Nair", enrollment: "2025H008", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 220", status: "Rejected" },
+  { id: 9, name: "Kabir Joshi", enrollment: "2025I009", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 125", status: "Pending" },
+  { id: 10, name: "Anika Choudhary", enrollment: "2025J010", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 225", status: "Approved" },
+  { id: 11, name: "Devanshi Saxena", enrollment: "2025K011", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 130", status: "Waitlist" },
+  { id: 12, name: "Arjun Mishra", enrollment: "2025L012", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 230", status: "Pending" },
+  { id: 13, name: "Riya Bhatia", enrollment: "2025M013", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 135", status: "Approved" },
+  { id: 14, name: "Shaurya Jain", enrollment: "2025N014", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 235", status: "Rejected" },
+  { id: 15, name: "Anshika Pandey", enrollment: "2025O015", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 140", status: "Pending" },
+  { id: 16, name: "Karan Thakur", enrollment: "2025P016", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 240", status: "Approved" },
+  { id: 17, name: "Sakshi Raina", enrollment: "2025Q017", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 145", status: "Waitlist" },
+  { id: 18, name: "Aditya Kulkarni", enrollment: "2025R018", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 245", status: "Pending" },
+  { id: 19, name: "Meera Sharma", enrollment: "2025S019", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 150", status: "Approved" },
+  { id: 20, name: "Raghav Bansal", enrollment: "2025T020", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 250", status: "Rejected" },
+  { id: 21, name: "Tanvi Joshi", enrollment: "2025U021", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 155", status: "Pending" },
+  { id: 22, name: "Vedant Desai", enrollment: "2025V022", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 255", status: "Approved" },
+  { id: 23, name: "Aisha Iyer", enrollment: "2025W023", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 160", status: "Waitlist" },
+  { id: 24, name: "Ishita Chatterjee", enrollment: "2025X024", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 260", status: "Pending" },
+  { id: 25, name: "Reyansh Singh", enrollment: "2025Y025", roomType: "Single", quota: "General", year: "2nd", suggestedBed: "Room 165", status: "Approved" },
+  { id: 26, name: "Nivedita Rao", enrollment: "2025Z026", roomType: "Double", quota: "OBC", year: "3rd", suggestedBed: "Room 265", status: "Rejected" },
+  { id: 27, name: "Devika Kapoor", enrollment: "2026A027", roomType: "Single", quota: "SC", year: "1st", suggestedBed: "Room 170", status: "Pending" },
+  { id: 28, name: "Aryan Malhotra", enrollment: "2026B028", roomType: "Double", quota: "General", year: "2nd", suggestedBed: "Room 270", status: "Approved" },
+  { id: 29, name: "Prisha Yadav", enrollment: "2026C029", roomType: "Single", quota: "OBC", year: "3rd", suggestedBed: "Room 175", status: "Waitlist" },
+  { id: 30, name: "Ritvik Nair", enrollment: "2026D030", roomType: "Double", quota: "SC", year: "1st", suggestedBed: "Room 275", status: "Pending" },
 ];
+
 
 export type HostelComplaint = {
   id: number;
@@ -1261,85 +1262,19 @@ export const digitalLibraryData = [
 export const subjects = ["All", "Electronics", "Computer Science", "Physics", "Chemistry", "Mathematics"];
 export const types = ["All", "Book", "Journal", "eBook", "PDF"];
 
-// Hostels Data
-// export const hostelsData = [
-//   {
-//     id: 1,
-//     name: "Sunrise Hostel",
-//     floorCount: 3,
-//     rooms: [
-//       { roomNo: "101", type: "Single", occupancy: 1, capacity: 1 },
-//       { roomNo: "102", type: "Double", occupancy: 1, capacity: 2 },
-//       { roomNo: "103", type: "Double", occupancy: 2, capacity: 2 },
-//     ],
-//     images: [
-//       "/images/hostel1-1.jpg",
-//       "/images/hostel1-2.jpg",
-//       "/images/hostel1-3.jpg",
-//     ],
-//     facilities: ["Mess", "WiFi", "Laundry", "Gym"],
-//     fees: [
-//       { semester: "Fall 2025", amount: 15000, status: "Paid" },
-//       { semester: "Spring 2026", amount: 15000, status: "Unpaid" },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Green Valley Hostel",
-//     floorCount: 2,
-//     rooms: [
-//       { roomNo: "201", type: "Single", occupancy: 0, capacity: 1 },
-//       { roomNo: "202", type: "Double", occupancy: 1, capacity: 2 },
-//       { roomNo: "203", type: "Double", occupancy: 2, capacity: 2 },
-//     ],
-//     images: [
-//       "/images/hostel2-1.jpg",
-//       "/images/hostel2-2.jpg",
-//       "/images/hostel2-3.jpg",
-//     ],
-//     facilities: ["Mess", "WiFi", "Library"],
-//     fees: [
-//       { semester: "Fall 2025", amount: 16000, status: "Unpaid" },
-//       { semester: "Spring 2026", amount: 16000, status: "Pending" },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "River View Hostel",
-//     floorCount: 3,
-//     rooms: [
-//       { roomNo: "301", type: "Single", occupancy: 0, capacity: 1 },
-//       { roomNo: "302", type: "Double", occupancy: 1, capacity: 2 },
-//     ],
-//     images: [
-//       "/images/hostel3-1.jpg",
-//       "/images/hostel3-2.jpg",
-//       "/images/hostel3-3.jpg",
-//     ],
-//     facilities: ["WiFi", "Gym", "CCTV"],
-//     fees: [
-//       { semester: "Fall 2025", amount: 17000, status: "Paid" },
-//       { semester: "Spring 2026", amount: 17000, status: "Paid" },
-//     ],
-//   },
-// ];
-// Hostels Data
-export const hostelsData = [
+import type { Hostel as Hostels } from "./types";
+export const hostelsData: Hostels[] = [
   {
     id: 1,
     name: "Sunrise Hostel",
     gender: "Boys",
     floorCount: 3,
     rooms: [
-      { roomNo: "101", type: "Single", occupancy: 1, capacity: 1 },
-      { roomNo: "102", type: "Double", occupancy: 1, capacity: 2 },
-      { roomNo: "103", type: "Double", occupancy: 2, capacity: 2 },
+      { roomNo: "101", type: "Single", occupancy: 1, capacity: 1, floor: 1 },
+      { roomNo: "102", type: "Double", occupancy: 1, capacity: 2, floor: 1 },
+      { roomNo: "103", type: "Double", occupancy: 2, capacity: 2, floor: 1 },
     ],
-    images: [
-      "/images/hostel1-1.jpg",
-      "/images/hostel1-2.jpg",
-      "/images/hostel1-3.jpg",
-    ],
+    images: ["/images/hostel1-1.jpg", "/images/hostel1-2.jpg", "/images/hostel1-3.jpg"],
     facilities: ["Mess", "WiFi", "Laundry", "Gym"],
     fees: [
       { semester: "Fall 2025", amount: 15000, status: "Paid" },
@@ -1352,15 +1287,11 @@ export const hostelsData = [
     gender: "Girls",
     floorCount: 2,
     rooms: [
-      { roomNo: "201", type: "Single", occupancy: 0, capacity: 1 },
-      { roomNo: "202", type: "Double", occupancy: 1, capacity: 2 },
-      { roomNo: "203", type: "Double", occupancy: 2, capacity: 2 },
+      { roomNo: "201", type: "Single", occupancy: 0, capacity: 1, floor: 2 },
+      { roomNo: "202", type: "Double", occupancy: 1, capacity: 2, floor: 2 },
+      { roomNo: "203", type: "Double", occupancy: 2, capacity: 2, floor: 2 },
     ],
-    images: [
-      "/images/hostel1-1.jpg",
-      "/images/hostel1-2.jpg",
-      "/images/hostel1-3.jpg",
-    ],
+    images: ["/images/hostel1-1.jpg", "/images/hostel1-2.jpg", "/images/hostel1-3.jpg"],
     facilities: ["Mess", "WiFi", "Library"],
     fees: [
       { semester: "Fall 2025", amount: 16000, status: "Unpaid" },
@@ -1373,14 +1304,10 @@ export const hostelsData = [
     gender: "Boys",
     floorCount: 3,
     rooms: [
-      { roomNo: "301", type: "Single", occupancy: 0, capacity: 1 },
-      { roomNo: "302", type: "Double", occupancy: 1, capacity: 2 },
+      { roomNo: "301", type: "Single", occupancy: 0, capacity: 1, floor: 3 },
+      { roomNo: "302", type: "Double", occupancy: 1, capacity: 2, floor: 3 },
     ],
-    images: [
-      "/images/hostel1-1.jpg",
-      "/images/hostel1-2.jpg",
-      "/images/hostel1-3.jpg",
-    ],
+    images: ["/images/hostel1-1.jpg", "/images/hostel1-2.jpg", "/images/hostel1-3.jpg"],
     facilities: ["WiFi", "Gym", "CCTV"],
     fees: [
       { semester: "Fall 2025", amount: 17000, status: "Paid" },
@@ -1388,7 +1315,6 @@ export const hostelsData = [
     ],
   },
 ];
-
 
 
 // Hostel Fees
