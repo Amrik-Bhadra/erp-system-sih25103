@@ -14,8 +14,8 @@ import {
   Settings,
 } from "lucide-react";
 
-import { NavMain } from "@/components/hostel/nav-main"; 
-import { NavUser } from "@/components/hostel/nav-user"; 
+import { NavMain } from "@/components/hostel/nav-main";
+import { NavUser } from "@/components/hostel/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +23,9 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { TeamSwitcher } from "../admin/team-switcher";
+// import { TeamSwitcher } from "../admin/team-switcher";
+import Logo from '/erp.png';
+import { Link } from "react-router-dom";
 
 // ✅ Sidebar configuration data
 const data = {
@@ -118,7 +120,17 @@ function StudentSidebar(props: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       {/* 🔹 Header: Team switcher */}
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Link to={'/'} className="flex items-center gap-2 border p-1">
+          <div className="flex aspect-square items-center justify-center rounded-lg">
+            <img src={Logo} className="w-10" />
+          </div>
+          <div className="grid text-left text-sm leading-tight">
+            <span className="truncate text-lg font-semibold">EduManager</span>
+            <span className="truncate text-sm text-[#ccc] font-medium">
+              Student
+            </span>
+          </div>
+        </Link>
       </SidebarHeader>
 
       {/* 🔹 Main Navigation */}
