@@ -206,7 +206,7 @@ export function Reports() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {categoryDistribution.map((entry, index) => (
+                      {categoryDistribution.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
