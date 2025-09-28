@@ -64,11 +64,11 @@ const StudentLayout = () => {
       {/* 🔹 Main Content Area */}
       <SidebarInset>
         {/* Header with breadcrumbs */}
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-200/50 bg-white px-4 dark:border-gray-800/50 dark:bg-gray-950 transition-[height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+        <header className="flex h-16 shrink-0 items-center gap-2 px-4 bg-transparent transition-[height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
-            className="mx-2 h-6 border border-gray-100/30 dark:border-gray-700/50"
+            className="mr-2 data-[orientation=vertical]:h-4 border border-gray-100/30"
           />
 
           {/* Breadcrumb Navigation */}

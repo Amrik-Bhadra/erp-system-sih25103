@@ -7,7 +7,6 @@ import VerifyOtpPage from "./pages/auth/VerifyOtpPage";
 
 import AdminLayout from "@/layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import NewAdmission from "./pages/admin/NewAdmission";
 
 import HostelLayout from "./layouts/HostelLayout";
 import HostelDasboard from "./pages/hostel/HostelDasboard";
@@ -37,11 +36,14 @@ import StudentGrievance from "@/pages/student/StudentGrievance";
 import StudentCertificates from "@/pages/student/StudentCertificates";
 import StudentSettings from "@/pages/student/StudentSettings";
 import LandingPage from "./pages/LandingPage";
+
 import AdmissionLayout from "./layouts/AdmissionLayout";
 import AdmissionDashboard from "./pages/admission/AdmissionDashboard";
+import NewAdmission from "./pages/admission/NewAdmission";
+import AdmittedList from "./pages/admission/AdmittedList";
 
 const App = () => {
-  // 🔹 Hostel Routes
+  // Hostel Routes
   const hostelRoutes = [
     {
       path: "/hostel",
@@ -69,7 +71,7 @@ const App = () => {
     },
   ];
 
-  // 🔹 Student Routes (based on your table)
+  //  Student Routes (based on your table)
   const studentRoutes = [
     {
       path: "/student",
@@ -140,7 +142,9 @@ const App = () => {
         ))}
 
         <Route path="/admission" element={<AdmissionLayout/>}>
-          <Route index path="" element={<AdmissionDashboard/>} />
+          <Route index element={<AdmissionDashboard/>} />
+          <Route path="new" element={<NewAdmission/>} />
+          <Route path="admitted-list" element={<AdmittedList/>} />
         </Route>
       </Routes>
 
