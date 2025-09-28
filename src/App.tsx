@@ -5,9 +5,6 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyOtpPage from "./pages/auth/VerifyOtpPage";
 
-import AdminLayout from "@/layouts/AdminLayout";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-
 import HostelLayout from "./layouts/HostelLayout";
 import HostelDasboard from "./pages/hostel/HostelDasboard";
 import HostelApplication from "./pages/hostel/HostelApplication";
