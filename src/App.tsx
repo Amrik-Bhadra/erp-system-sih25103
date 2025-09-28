@@ -25,10 +25,9 @@ import { Toaster } from "sonner";
 // 🔹 Student imports
 import StudentLayout from "./layouts/StudentLayout";
 import StudentDashboard from "@/pages/student/StudentDashboard";
-import StudentProfile from "@/pages/student/StudentProfile"; // Personal Information
+import StudentProfile from "@/pages/student/StudentProfile";
 import StudentExamination from "@/pages/student/StudentExamination";
 import StudentResults from "@/pages/student/StudentResults";
-import StudentLibrary from "@/pages/student/StudentLibrary";
 import StudentHostel from "@/pages/student/StudentHostel";
 import StudentFinance from "@/pages/student/StudentFinance";
 import StudentAttendance from "@/pages/student/StudentAttendance";
@@ -36,6 +35,16 @@ import StudentNotices from "@/pages/student/StudentNotices";
 import StudentGrievance from "@/pages/student/StudentGrievance";
 import StudentCertificates from "@/pages/student/StudentCertificates";
 import StudentSettings from "@/pages/student/StudentSettings";
+
+// 🔹 Library Module
+import LibraryLayout from "./layouts/LibraryLayout";
+import LibraryHome from "@/pages/library/LibraryHome";
+import SearchBooks from "@/pages/library/SearchBooks";
+import IssuedBooks from "@/pages/library/IssuedBooks";
+import ReturnBooks from "@/pages/library/ReturnBooks";
+import Fines from "@/pages/library/Fines";
+import LibraryNotices from "@/pages/library/LibraryNotices";
+
 import LandingPage from "./pages/LandingPage";
 
 const App = () => {
@@ -67,7 +76,7 @@ const App = () => {
     },
   ];
 
-  // 🔹 Student Routes (based on your table)
+  // 🔹 Student Routes
   const studentRoutes = [
     {
       path: "/student",
@@ -78,7 +87,20 @@ const App = () => {
         { path: "personal-info", element: <StudentProfile />, name: "Personal Information" },
         { path: "examination", element: <StudentExamination />, name: "Examination" },
         { path: "results", element: <StudentResults />, name: "Results" },
-        { path: "library", element: <StudentLibrary />, name: "Library" },
+        // 🔹 Library routes integrated under Student
+        {
+          path: "library",
+          element: <LibraryLayout />,
+          name: "Library",
+          children: [
+            { index: true, element: <LibraryHome />, name: "Library Home" },
+            { path: "search", element: <SearchBooks />, name: "Search Books" },
+            { path: "issued", element: <IssuedBooks />, name: "Issued Books" },
+            { path: "return", element: <ReturnBooks />, name: "Return Books" },
+            { path: "fines", element: <Fines />, name: "Fines" },
+            { path: "notices", element: <LibraryNotices />, name: "Library Notices" },
+          ],
+        },
         { path: "hostel", element: <StudentHostel />, name: "Hostel" },
         { path: "finance", element: <StudentFinance />, name: "Fees & Finance" },
         { path: "attendance", element: <StudentAttendance />, name: "Attendance & Academics" },
@@ -93,7 +115,8 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage/>} />
+        <Route path="/" element={<LandingPage />} />
+
         {/* 🔹 Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
@@ -132,7 +155,9 @@ const App = () => {
                 index={child.index}
                 path={child.path}
                 element={child.element}
-              />
+              >
+                {/* Nested Library Routes already included above */}
+              </Route>
             ))}
           </Route>
         ))}
