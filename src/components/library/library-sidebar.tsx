@@ -1,40 +1,35 @@
-import { useLocation, Link } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils"; // Utility for conditional class names
-
-// Sidebar links for Library section
-const libraryLinks = [
-  { path: "/student/library", label: "Library Home" },
-  { path: "/student/library/search", label: "Search Books" },
-  { path: "/student/library/issued", label: "Issued Books" },
-  { path: "/student/library/return", label: "Return Books" },
-  { path: "/student/library/fines", label: "Fines" },
-  { path: "/student/library/notices", label: "Library Notices" },
-];
+import { Link, useLocation } from "react-router-dom";
 
 const LibrarySidebar = () => {
   const location = useLocation();
+  const links = [
+    { path: "/library", label: "Dashboard" },
+    { path: "/library/manage-books", label: "Manage Books" },
+    { path: "/library/issue-books", label: "Issue Books" },
+    { path: "/library/return-books", label: "Return Books" },
+    { path: "/library/fines", label: "Fines" },
+    { path: "/library/notices", label: "Notices" },
+    { path: "/library/reports", label: "Reports" },
+    { path: "/library/settings", label: "Settings" },
+  ];
 
   return (
-    <aside className="w-64 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
-      <ScrollArea className="h-screen px-3 py-4">
-        <nav className="flex flex-col space-y-1">
-          {libraryLinks.map((link) => (
+    <aside className="w-64 bg-gray-100 dark:bg-gray-900 h-screen p-4">
+      <h2 className="text-xl font-bold mb-4">Library Portal</h2>
+      <ul className="flex flex-col gap-2">
+        {links.map(link => (
+          <li key={link.path}>
             <Link
-              key={link.path}
               to={link.path}
-              className={cn(
-                "px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800",
-                location.pathname === link.path
-                  ? "bg-blue-500 text-white"
-                  : "text-gray-700 dark:text-gray-200"
-              )}
+              className={`block p-2 rounded ${
+                location.pathname === link.path ? "bg-blue-600 text-white" : "hover:bg-gray-300 dark:hover:bg-gray-800"
+              }`}
             >
               {link.label}
             </Link>
-          ))}
-        </nav>
-      </ScrollArea>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 };
