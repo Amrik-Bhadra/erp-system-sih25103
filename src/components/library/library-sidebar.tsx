@@ -1,37 +1,126 @@
-import { Link, useLocation } from "react-router-dom";
+import * as React from "react";
+import {
+  LayoutDashboard,
+  Book,
+  BookOpen,
+  Users,
+  CreditCard,
+  Calendar,
+  BarChart3,
+  Bell,
+  Settings,
+  Library,
+  BookMarked,
+  UserCheck,
+} from "lucide-react";
 
-const LibrarySidebar = () => {
-  const location = useLocation();
-  const links = [
-    { path: "/library", label: "Dashboard" },
-    { path: "/library/manage-books", label: "Manage Books" },
-    { path: "/library/issue-books", label: "Issue Books" },
-    { path: "/library/return-books", label: "Return Books" },
-    { path: "/library/fines", label: "Fines" },
-    { path: "/library/notices", label: "Notices" },
-    { path: "/library/reports", label: "Reports" },
-    { path: "/library/settings", label: "Settings" },
-  ];
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import { TeamSwitcher } from "./team-switcher";
 
-  return (
-    <aside className="w-64 bg-gray-100 dark:bg-gray-900 h-screen p-4">
-      <h2 className="text-xl font-bold mb-4">Library Portal</h2>
-      <ul className="flex flex-col gap-2">
-        {links.map(link => (
-          <li key={link.path}>
-            <Link
-              to={link.path}
-              className={`block p-2 rounded ${
-                location.pathname === link.path ? "bg-blue-600 text-white" : "hover:bg-gray-300 dark:hover:bg-gray-800"
-              }`}
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
+// Sidebar configuration data for Library
+const data = {
+  user: {
+    name: "Library Admin",
+    email: "library.admin@college.edu",
+    avatar: "/avatars/library.jpg",
+    role: "Head Librarian",
+  },
+  navMain: [
+    {
+      title: "Dashboard",
+      url: "/library",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Book Management",
+      url: "/library/book-management",
+      icon: Book,
+    },
+    {
+      title: "Issue & Return",
+      url: "/library/issue-return",
+      icon: BookOpen,
+    },
+    {
+      title: "Student Records",
+      url: "/library/student-records",
+      icon: Users,
+    },
+    {
+      title: "Fines & Payments",
+      url: "/library/fines-payments",
+      icon: CreditCard,
+    },
+    {
+      title: "Recommendations",
+      url: "/library/recommendations",
+      icon: Calendar,
+    },
+    {
+      title: "Reports & Analytics",
+      url: "/library/reports",
+      icon: BarChart3,
+    },
+    {
+      title: "Notices & Announcements",
+      url: "/library/notices",
+      icon: Bell,
+    },
+    {
+      title: "Settings",
+      url: "/library/settings",
+      icon: Settings,
+    },
+  ],
+  teams: [
+    {
+      name: "Main Library",
+      logo: Library,
+      plan: "Active",
+    },
+    {
+      name: "Digital Library",
+      logo: BookMarked,
+      plan: "Online",
+    },
+    {
+      name: "Reference Section",
+      logo: UserCheck,
+      plan: "Staff Only",
+    },
+  ],
 };
+
+export function LibrarySidebar() {
+  return (
+    <Sidebar collapsible="icon">
+      {/* Header: Team switcher */}
+      <SidebarHeader>
+        <TeamSwitcher teams={data.teams} />
+      </SidebarHeader>
+
+      {/* Main Navigation */}
+      <SidebarContent>
+        <NavMain items={data.navMain} />
+      </SidebarContent>
+
+      {/* Footer: User profile */}
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
+
+      {/* Sidebar Rail (for collapsed state) */}
+      <SidebarRail />
+    </Sidebar>
+  );
+}
 
 export default LibrarySidebar;

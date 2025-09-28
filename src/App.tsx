@@ -1,15 +1,14 @@
-// src/App.tsx
 import { Route, Routes } from "react-router-dom";
-import { Toaster } from "sonner";
-
-// 🔹 Auth imports
-import AuthLayout from "./layouts/AuthLayout";
 import LoginPage from "./pages/auth/LoginPage";
+import AuthLayout from "./layouts/AuthLayout";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyOtpPage from "./pages/auth/VerifyOtpPage";
 
-// 🔹 Hostel imports
+// import AdminLayout from "@/layouts/AdminLayout";
+
+// import NewAdmission from "./pages/admin/NewAdmission";
+
 import HostelLayout from "./layouts/HostelLayout";
 import HostelDasboard from "./pages/hostel/HostelDasboard";
 import HostelApplication from "./pages/hostel/HostelApplication";
@@ -20,6 +19,8 @@ import HostelReports from "./pages/hostel/HostelReports";
 import HostelSettings from "./pages/hostel/HostelSettings";
 import HostelClearance from "./pages/hostel/HostelClearance";
 import HostelList from "./pages/hostel/HostelList";
+
+import { Toaster } from "sonner";
 
 // 🔹 Student imports
 import StudentLayout from "./layouts/StudentLayout";
@@ -35,20 +36,21 @@ import StudentNotices from "@/pages/student/StudentNotices";
 import StudentGrievance from "@/pages/student/StudentGrievance";
 import StudentCertificates from "@/pages/student/StudentCertificates";
 import StudentSettings from "@/pages/student/StudentSettings";
-
-// 🔹 Library (Librarian) imports
-import LibraryLayout from "@/layouts/LibraryLayout";
-import LibraryDashboard from "@/pages/library/LibraryDashboard";
-import ManageBooks from "@/pages/library/ManageBooks";
-import IssueBooks from "@/pages/library/IssueBooks";
-import ReturnBooks from "@/pages/library/ReturnBooks";
-import Fines from "@/pages/library/Fines";
-import LibraryNotices from "@/pages/library/LibraryNotices";
-import LibraryReports from "@/pages/library/LibraryReports";
-import LibrarySettings from "@/pages/library/LibrarySettings";
-
-// 🔹 Landing Page
 import LandingPage from "./pages/LandingPage";
+// import AdmissionLayout from "./layouts/AdmissionLayout";
+
+
+// 🔹 Library imports
+import {LibraryLayout} from "./layouts/LibraryLayout";
+import {LibraryDashboard} from "./pages/library/dashboard";
+import {BookManagement} from "./pages/library/book-management";
+import {IssueReturn} from "./pages/library/issue-return";
+import {StudentRecords} from "./pages/library/student-records";
+import {FinesPayments} from "./pages/library/fines-payments";
+import {Recommendations} from "./pages/library/recommendations";
+import {Reports} from "./pages/library/reports";
+import {Notices} from "./pages/library/notices";
+import {Settings} from "./pages/library/settings";
 
 const App = () => {
   // 🔹 Hostel Routes
@@ -56,16 +58,25 @@ const App = () => {
     {
       path: "/hostel",
       element: <HostelLayout />,
+      name: "Hostel Dashboard",
       children: [
-        { index: true, element: <HostelDasboard /> },
-        { path: "hostels", element: <HostelList /> },
-        { path: "student-application", element: <HostelApplication /> },
-        { path: "room-allocation", element: <HostelRoomAllocation /> },
-        { path: "maintenance", element: <HostelMaintenance /> },
-        { path: "notifications", element: <HostelNotifications /> },
-        { path: "reports", element: <HostelReports /> },
-        { path: "settings", element: <HostelSettings /> },
-        { path: "clearance", element: <HostelClearance /> },
+        { index: true, element: <HostelDasboard />, name: "Dashboard" },
+        { path: "hostels", element: <HostelList />, name: "Hostels" },
+        {
+          path: "student-application",
+          element: <HostelApplication />,
+          name: "Student Application",
+        },
+        {
+          path: "room-allocation",
+          element: <HostelRoomAllocation />,
+          name: "Room Allocation",
+        },
+        { path: "maintenance", element: <HostelMaintenance />, name: "Maintenance" },
+        { path: "notifications", element: <HostelNotifications />, name: "Notifications" },
+        { path: "reports", element: <HostelReports />, name: "Reports" },
+        { path: "settings", element: <HostelSettings />, name: "Settings" },
+        { path: "clearance", element: <HostelClearance />, name: "Clearance" },
       ],
     },
   ];
@@ -75,37 +86,40 @@ const App = () => {
     {
       path: "/student",
       element: <StudentLayout />,
+      name: "Student Dashboard",
       children: [
-        { index: true, element: <StudentDashboard /> },
-        { path: "personal-info", element: <StudentProfile /> },
-        { path: "examination", element: <StudentExamination /> },
-        { path: "results", element: <StudentResults /> },
-        { path: "library", element: <StudentLibrary /> },
-        { path: "hostel", element: <StudentHostel /> },
-        { path: "finance", element: <StudentFinance /> },
-        { path: "attendance", element: <StudentAttendance /> },
-        { path: "notices", element: <StudentNotices /> },
-        { path: "grievance", element: <StudentGrievance /> },
-        { path: "certificates", element: <StudentCertificates /> },
-        { path: "settings", element: <StudentSettings /> },
+        { index: true, element: <StudentDashboard />, name: "Dashboard" },
+        { path: "personal-info", element: <StudentProfile />, name: "Personal Information" },
+        { path: "examination", element: <StudentExamination />, name: "Examination" },
+        { path: "results", element: <StudentResults />, name: "Results" },
+        { path: "library", element: <StudentLibrary />, name: "Library" },
+        { path: "hostel", element: <StudentHostel />, name: "Hostel" },
+        { path: "finance", element: <StudentFinance />, name: "Fees & Finance" },
+        { path: "attendance", element: <StudentAttendance />, name: "Attendance & Academics" },
+        { path: "notices", element: <StudentNotices />, name: "Notices & Announcements" },
+        { path: "grievance", element: <StudentGrievance />, name: "Grievance / Support" },
+        { path: "certificates", element: <StudentCertificates />, name: "Reports & Certificates" },
+        { path: "settings", element: <StudentSettings />, name: "Settings" },
       ],
     },
   ];
 
-  // 🔹 Library (Librarian) Routes
+  // 🔹 Library Routes
   const libraryRoutes = [
     {
       path: "/library",
       element: <LibraryLayout />,
+      name: "Library Management",
       children: [
-        { index: true, element: <LibraryDashboard /> },
-        { path: "manage-books", element: <ManageBooks /> },
-        { path: "issue-books", element: <IssueBooks /> },
-        { path: "return-books", element: <ReturnBooks /> },
-        { path: "fines", element: <Fines /> },
-        { path: "notices", element: <LibraryNotices /> },
-        { path: "reports", element: <LibraryReports /> },
-        { path: "settings", element: <LibrarySettings /> },
+        { index: true, element: <LibraryDashboard />, name: "Dashboard" },
+        { path: "book-management", element: <BookManagement />, name: "Book Management" },
+        { path: "issue-return", element: <IssueReturn />, name: "Issue & Return" },
+        { path: "student-records", element: <StudentRecords />, name: "Student Records" },
+        { path: "fines-payments", element: <FinesPayments />, name: "Fines & Payments" },
+        { path: "recommendations", element: <Recommendations />, name: "Recommendations" },
+        { path: "reports", element: <Reports />, name: "Reports & Analytics" },
+        { path: "notices", element: <Notices />, name: "Notices & Announcements" },
+        { path: "settings", element: <Settings />, name: "Settings" },
       ],
     },
   ];
@@ -113,9 +127,8 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* Landing Page */}
-        <Route path="/" element={<LandingPage />} />
-
+        <Route path="/" element={<LandingPage/>} />
+        
         {/* 🔹 Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
@@ -124,6 +137,12 @@ const App = () => {
           <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="verify-otp" element={<VerifyOtpPage />} />
         </Route>
+
+        {/* 🔹 Admin Routes */}
+        {/* <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="new-admission" element={<NewAdmission />} />
+        </Route> */}
 
         {/* 🔹 Hostel Routes */}
         {hostelRoutes.map((route) => (
@@ -153,7 +172,7 @@ const App = () => {
           </Route>
         ))}
 
-        {/* 🔹 Library (Librarian) Routes */}
+        {/* 🔹 Library Routes */}
         {libraryRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element}>
             {route.children?.map((child) => (
@@ -166,6 +185,8 @@ const App = () => {
             ))}
           </Route>
         ))}
+
+        
       </Routes>
 
       <Toaster />
