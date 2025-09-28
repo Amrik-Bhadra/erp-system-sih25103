@@ -48,7 +48,7 @@ const LandingPage = () => {
             {/* Enhanced Header Section */}
             <div className="text-center space-y-6 relative z-10 max-w-4xl">
                 <div className="space-y-4">
-                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <h1 className="text-5xl md:text-6xl font-bold dark:text-gray-100 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                         EduManage Pro
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light">
@@ -204,7 +204,7 @@ const LandingPage = () => {
             </div>
 
             {/* Enhanced Custom Animations */}
-            <style jsx>{`
+            <style>{`
                 @keyframes float-slow {
                     0%, 100% { transform: translateY(0px) rotate(0deg); }
                     50% { transform: translateY(-25px) rotate(5deg); }
