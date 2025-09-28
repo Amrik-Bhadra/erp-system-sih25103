@@ -24,7 +24,7 @@ import { Toaster } from "sonner";
 // 🔹 Student imports
 import StudentLayout from "./layouts/StudentLayout";
 import StudentDashboard from "@/pages/student/StudentDashboard";
-import StudentProfile from "@/pages/student/StudentProfile"; // Personal Information
+import StudentProfile from "@/pages/student/StudentProfile";
 import StudentExamination from "@/pages/student/StudentExamination";
 import StudentResults from "@/pages/student/StudentResults";
 import StudentLibrary from "@/pages/student/StudentLibrary";
@@ -41,6 +41,20 @@ import AdmissionLayout from "./layouts/AdmissionLayout";
 import AdmissionDashboard from "./pages/admission/AdmissionDashboard";
 import NewAdmission from "./pages/admission/NewAdmission";
 import AdmittedList from "./pages/admission/AdmittedList";
+// import AdmissionLayout from "./layouts/AdmissionLayout";
+
+
+// 🔹 Library imports
+import {LibraryLayout} from "./layouts/LibraryLayout";
+import {LibraryDashboard} from "./pages/library/dashboard";
+import {BookManagement} from "./pages/library/book-management";
+import {IssueReturn} from "./pages/library/issue-return";
+import {StudentRecords} from "./pages/library/student-records";
+import {FinesPayments} from "./pages/library/fines-payments";
+import {Recommendations} from "./pages/library/recommendations";
+import {Reports} from "./pages/library/reports";
+import {Notices} from "./pages/library/notices";
+import {Settings} from "./pages/library/settings";
 
 const App = () => {
   // Hostel Routes
@@ -71,7 +85,7 @@ const App = () => {
     },
   ];
 
-  //  Student Routes (based on your table)
+  // 🔹 Student Routes
   const studentRoutes = [
     {
       path: "/student",
@@ -94,10 +108,31 @@ const App = () => {
     },
   ];
 
+  // 🔹 Library Routes
+  const libraryRoutes = [
+    {
+      path: "/library",
+      element: <LibraryLayout />,
+      name: "Library Management",
+      children: [
+        { index: true, element: <LibraryDashboard />, name: "Dashboard" },
+        { path: "book-management", element: <BookManagement />, name: "Book Management" },
+        { path: "issue-return", element: <IssueReturn />, name: "Issue & Return" },
+        { path: "student-records", element: <StudentRecords />, name: "Student Records" },
+        { path: "fines-payments", element: <FinesPayments />, name: "Fines & Payments" },
+        { path: "recommendations", element: <Recommendations />, name: "Recommendations" },
+        { path: "reports", element: <Reports />, name: "Reports & Analytics" },
+        { path: "notices", element: <Notices />, name: "Notices & Announcements" },
+        { path: "settings", element: <Settings />, name: "Settings" },
+      ],
+    },
+  ];
+
   return (
     <>
       <Routes>
         <Route path="/" element={<LandingPage/>} />
+        
         {/* 🔹 Auth Routes */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
@@ -108,10 +143,10 @@ const App = () => {
         </Route>
 
         {/* 🔹 Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+        {/* <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="new-admission" element={<NewAdmission />} />
-        </Route>
+        </Route> */}
 
         {/* 🔹 Hostel Routes */}
         {hostelRoutes.map((route) => (
@@ -146,6 +181,22 @@ const App = () => {
           <Route path="new" element={<NewAdmission/>} />
           <Route path="admitted-list" element={<AdmittedList/>} />
         </Route>
+
+        {/* 🔹 Library Routes */}
+        {libraryRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element}>
+            {route.children?.map((child) => (
+              <Route
+                key={child.path || "index"}
+                index={child.index}
+                path={child.path}
+                element={child.element}
+              />
+            ))}
+          </Route>
+        ))}
+
+        
       </Routes>
 
       <Toaster />
