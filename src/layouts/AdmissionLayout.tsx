@@ -1,68 +1,102 @@
-"use client";
-
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
-import { AdmissionSidebar } from "@/components/admission/admission-sidebar";
+import { useEffect, useMemo } from "react";
+import { Outlet, useLocation, Link } from "react-router-dom";
+import AdmissionSidebar from "@/components/admission/admission-sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Bell } from "lucide-react";
 
-export function AdmissionLayout() {
+// 🔹 Route-to-name mapping for breadcrumbs & page titles
+const routeNameMap: Record<string, string> = {
+  "/admission": "Dashboard",
+  "/admission/new": "New Admissions",
+  "/admission/students": "Student Records",
+  "/admission/forms": "Admission Forms",
+  "/admission/exams": "Examinations Data",
+  "/admission/library": "Library Access",
+  "/admission/fees": "Fee & Finance",
+  "/admission/reports": "Reports & Certificates",
+  "/admission/logs": "Audit & Logs",
+  "/admission/settings": "Settings / Account",
+};
+
+const AdmissionLayout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const getActiveSectionName = () => {
-    const path = location.pathname;
-    if (path === '/admission') return 'Dashboard';
-    if (path.includes('applications')) return 'Application Management';
-    if (path.includes('merit-counseling')) return 'Merit List & Counseling';
-    if (path.includes('approval')) return 'Admission Approval';
-    if (path.includes('fee-integration')) return 'Fee Integration';
-    if (path.includes('student-records')) return 'Student Records Management';
-    if (path.includes('reports')) return 'Reports & Analytics';
-    if (path.includes('notices')) return 'Notices & Communication';
-    if (path.includes('settings')) return 'Settings';
-    return 'Dashboard';
-  };
+  // 🔹 Generate breadcrumb items dynamically from pathname
+  const breadcrumbs = useMemo(() => {
+    const paths = location.pathname.split("/").filter(Boolean); // ["admission", "forms"]
+    return paths.map((_, index) => {
+      const fullPath = "/" + paths.slice(0, index + 1).join("/");
+      return {
+        path: fullPath,
+        label: routeNameMap[fullPath] || "Unknown",
+      };
+    });
+  }, [location.pathname]);
+
+  // 🔹 Current route name = last breadcrumb
+  const currentRouteName =
+    breadcrumbs[breadcrumbs.length - 1]?.label || "Admission Dashboard";
+
+  // 🔹 Update browser tab title on route change
+  useEffect(() => {
+    document.title = `${currentRouteName} | Admission Cell`;
+  }, [currentRouteName]);
 
   return (
     <SidebarProvider>
+      {/* 🔹 Left Sidebar */}
       <AdmissionSidebar />
+
+      {/* 🔹 Main Content Area */}
       <SidebarInset>
-        {/* Header matching Student portal exactly */}
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b border-gray-200/50 bg-white px-4 dark:border-gray-800/50 dark:bg-gray-950 transition-[height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mx-2 h-6 border border-gray-100/30 dark:border-gray-700/50"
-            />
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 capitalize">
-              {getActiveSectionName()}
-            </h2>
-          </div>
-          
-          <div className="ml-auto flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              <Bell className="w-4 h-4 mr-2" />
-              Notifications
-            </Button>
-            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-medium">AA</span>
-            </div>
-          </div>
+        {/* Header with breadcrumbs */}
+        <header className="flex h-16 shrink-0 items-center gap-2 px-4 bg-transparent transition-[height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4 border border-gray-100/30"
+          />
+
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb>
+            <BreadcrumbList>
+              {breadcrumbs.map((crumb, index) => (
+                <BreadcrumbItem key={crumb.path}>
+                  {index === breadcrumbs.length - 1 ? (
+                    <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                  ) : (
+                    <>
+                      <Link to={crumb.path} className="hover:underline">
+                        {crumb.label}
+                      </Link>
+                      <BreadcrumbSeparator />
+                    </>
+                  )}
+                </BreadcrumbItem>
+              ))}
+            </BreadcrumbList>
+          </Breadcrumb>
         </header>
-        
-        <main className="flex-1 overflow-auto">
+
+        {/* Scrollable main content */}
+        <ScrollArea className="h-[calc(100vh-4rem)] px-4 py-2">
           <Outlet />
-        </main>
+        </ScrollArea>
       </SidebarInset>
     </SidebarProvider>
   );
-}
+};
 
 export default AdmissionLayout;

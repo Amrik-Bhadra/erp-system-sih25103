@@ -25,7 +25,9 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { TeamSwitcher } from "../admin/team-switcher";
+// import { TeamSwitcher } from "../admin/team-switcher";
+import Logo from "/erp.png";
+import { Link } from "react-router-dom";
 
 const data = {
   user: {
@@ -103,7 +105,15 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Link to={'/'} className="flex items-center gap-2 border p-1">
+          <div className="flex aspect-square items-center justify-center rounded-lg">
+            <img src={Logo} className="w-10"/>
+          </div>
+          <div className="grid text-left text-sm leading-tight">
+            <span className="truncate text-lg font-semibold">EduManager</span>
+            <span className="truncate text-sm text-[#ccc] font-medium">Hostel</span>
+          </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

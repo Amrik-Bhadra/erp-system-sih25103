@@ -1,15 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Search, Bell, Plus, Edit, Trash2, Send, Calendar, Eye, EyeOff } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Edit,
+  Trash2,
+  Send,
+  Calendar,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { mockNotices } from "@/data/mockData";
+
+type NoticeType = "info" | "warning" | "holiday" | "new-arrival";
 
 export function Notices() {
   const [activeTab, setActiveTab] = useState("active");
@@ -17,45 +41,62 @@ export function Notices() {
   const [newNotice, setNewNotice] = useState({
     title: "",
     content: "",
-    type: "info" as "info" | "warning" | "holiday" | "new-arrival",
+    type: "info" as NoticeType,
     startDate: "",
     endDate: "",
-    isActive: true
+    isActive: true,
   });
 
-  const filteredNotices = mockNotices.filter(notice =>
-    notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    notice.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredNotices = mockNotices.filter(notice =>
+  //   notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //   notice.content.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
-  const activeNotices = mockNotices.filter(notice => notice.isActive);
-  const expiredNotices = mockNotices.filter(notice => !notice.isActive);
+  const activeNotices = mockNotices.filter((notice) => notice.isActive);
+  const expiredNotices = mockNotices.filter((notice) => !notice.isActive);
 
   const getTypeVariant = (type: string) => {
     switch (type) {
-      case 'info': return 'default';
-      case 'warning': return 'secondary';
-      case 'holiday': return 'outline';
-      case 'new-arrival': return 'default';
-      default: return 'default';
+      case "info":
+        return "default";
+      case "warning":
+        return "secondary";
+      case "holiday":
+        return "outline";
+      case "new-arrival":
+        return "default";
+      default:
+        return "default";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'info': return 'bg-blue-100 text-blue-800';
-      case 'warning': return 'bg-yellow-100 text-yellow-800';
-      case 'holiday': return 'bg-purple-100 text-purple-800';
-      case 'new-arrival': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "info":
+        return "bg-blue-100 text-blue-800";
+      case "warning":
+        return "bg-yellow-100 text-yellow-800";
+      case "holiday":
+        return "bg-purple-100 text-purple-800";
+      case "new-arrival":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const handleCreateNotice = () => {
     if (newNotice.title && newNotice.content) {
-      alert(`Notice created!\nTitle: ${newNotice.title}\nType: ${newNotice.type}`);
+      alert(
+        `Notice created!\nTitle: ${newNotice.title}\nType: ${newNotice.type}`
+      );
       setNewNotice({
-        title: "", content: "", type: "info", startDate: "", endDate: "", isActive: true
+        title: "",
+        content: "",
+        type: "info",
+        startDate: "",
+        endDate: "",
+        isActive: true,
       });
     }
   };
@@ -77,11 +118,17 @@ export function Notices() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Notices & Announcements</h1>
-          <p className="text-muted-foreground">Manage library notices and student alerts</p>
+          <p className="text-muted-foreground">
+            Manage library notices and student alerts
+          </p>
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="active">Active Notices</TabsTrigger>
           <TabsTrigger value="create">Create Notice</TabsTrigger>
@@ -94,7 +141,9 @@ export function Notices() {
           <Card>
             <CardHeader>
               <CardTitle>Active Notices</CardTitle>
-              <CardDescription>Currently active library announcements</CardDescription>
+              <CardDescription>
+                Currently active library announcements
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2 mb-4">
@@ -109,17 +158,26 @@ export function Notices() {
 
               <div className="space-y-4">
                 {activeNotices.map((notice) => (
-                  <Card key={notice.id} className="border-l-4 border-l-blue-500">
+                  <Card
+                    key={notice.id}
+                    className="border-l-4 border-l-blue-500"
+                  >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2 flex-1">
                           <div className="flex items-center space-x-3">
                             <h4 className="font-semibold">{notice.title}</h4>
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTypeColor(notice.type)}`}>
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium ${getTypeColor(
+                                notice.type
+                              )}`}
+                            >
                               {notice.type}
                             </span>
                           </div>
-                          <p className="text-sm text-muted-foreground">{notice.content}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {notice.content}
+                          </p>
                           <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                             <span className="flex items-center">
                               <Calendar className="w-3 h-3 mr-1" />
@@ -133,11 +191,19 @@ export function Notices() {
                           </div>
                         </div>
                         <div className="flex space-x-2 ml-4">
-                          <Button variant="outline" size="sm" onClick={() => handleSendAlert(notice.id)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleSendAlert(notice.id)}
+                          >
                             <Send className="w-4 h-4 mr-1" />
                             Send Alert
                           </Button>
-                          <Button variant="outline" size="sm" onClick={() => handleToggleActive(notice.id)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleToggleActive(notice.id)}
+                          >
                             <EyeOff className="w-4 h-4 mr-1" />
                             Deactivate
                           </Button>
@@ -145,7 +211,11 @@ export function Notices() {
                             <Edit className="w-4 h-4 mr-1" />
                             Edit
                           </Button>
-                          <Button variant="outline" size="sm" onClick={() => handleDeleteNotice(notice.id)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDeleteNotice(notice.id)}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -163,7 +233,9 @@ export function Notices() {
           <Card>
             <CardHeader>
               <CardTitle>Create New Notice</CardTitle>
-              <CardDescription>Create new library announcements and notices</CardDescription>
+              <CardDescription>
+                Create new library announcements and notices
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -171,7 +243,9 @@ export function Notices() {
                 <Input
                   placeholder="Enter notice title"
                   value={newNotice.title}
-                  onChange={(e) => setNewNotice({...newNotice, title: e.target.value})}
+                  onChange={(e) =>
+                    setNewNotice({ ...newNotice, title: e.target.value })
+                  }
                 />
               </div>
 
@@ -180,7 +254,9 @@ export function Notices() {
                 <Textarea
                   placeholder="Enter notice content..."
                   value={newNotice.content}
-                  onChange={(e) => setNewNotice({...newNotice, content: e.target.value})}
+                  onChange={(e) =>
+                    setNewNotice({ ...newNotice, content: e.target.value })
+                  }
                   rows={4}
                 />
               </div>
@@ -191,7 +267,12 @@ export function Notices() {
                   <select
                     className="w-full p-2 border rounded-md"
                     value={newNotice.type}
-                    onChange={(e) => setNewNotice({...newNotice, type: e.target.value as any})}
+                    onChange={(e) =>
+                      setNewNotice({
+                        ...newNotice,
+                        type: e.target.value as NoticeType,
+                      })
+                    }
                   >
                     <option value="info">General Information</option>
                     <option value="warning">Warning/Alert</option>
@@ -205,7 +286,12 @@ export function Notices() {
                   <select
                     className="w-full p-2 border rounded-md"
                     value={newNotice.isActive ? "active" : "inactive"}
-                    onChange={(e) => setNewNotice({...newNotice, isActive: e.target.value === "active"})}
+                    onChange={(e) =>
+                      setNewNotice({
+                        ...newNotice,
+                        isActive: e.target.value === "active",
+                      })
+                    }
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -219,21 +305,30 @@ export function Notices() {
                   <Input
                     type="date"
                     value={newNotice.startDate}
-                    onChange={(e) => setNewNotice({...newNotice, startDate: e.target.value})}
+                    onChange={(e) =>
+                      setNewNotice({ ...newNotice, startDate: e.target.value })
+                    }
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">End Date (Optional)</label>
+                  <label className="text-sm font-medium">
+                    End Date (Optional)
+                  </label>
                   <Input
                     type="date"
                     value={newNotice.endDate}
-                    onChange={(e) => setNewNotice({...newNotice, endDate: e.target.value})}
+                    onChange={(e) =>
+                      setNewNotice({ ...newNotice, endDate: e.target.value })
+                    }
                   />
                 </div>
               </div>
 
               <div className="flex space-x-2">
-                <Button onClick={handleCreateNotice} disabled={!newNotice.title || !newNotice.content}>
+                <Button
+                  onClick={handleCreateNotice}
+                  disabled={!newNotice.title || !newNotice.content}
+                >
                   <Plus className="w-4 h-4 mr-2" />
                   Create Notice
                 </Button>
@@ -249,32 +344,42 @@ export function Notices() {
           <Card>
             <CardHeader>
               <CardTitle>Quick Templates</CardTitle>
-              <CardDescription>Pre-defined notice templates for common scenarios</CardDescription>
+              <CardDescription>
+                Pre-defined notice templates for common scenarios
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Button variant="outline" className="h-auto p-4 justify-start">
                   <div className="text-left">
                     <div className="font-medium">Holiday Notice</div>
-                    <div className="text-sm text-muted-foreground">Library closure announcement</div>
+                    <div className="text-sm text-muted-foreground">
+                      Library closure announcement
+                    </div>
                   </div>
                 </Button>
                 <Button variant="outline" className="h-auto p-4 justify-start">
                   <div className="text-left">
                     <div className="font-medium">Maintenance Alert</div>
-                    <div className="text-sm text-muted-foreground">System downtime notice</div>
+                    <div className="text-sm text-muted-foreground">
+                      System downtime notice
+                    </div>
                   </div>
                 </Button>
                 <Button variant="outline" className="h-auto p-4 justify-start">
                   <div className="text-left">
                     <div className="font-medium">New Arrivals</div>
-                    <div className="text-sm text-muted-foreground">New books announcement</div>
+                    <div className="text-sm text-muted-foreground">
+                      New books announcement
+                    </div>
                   </div>
                 </Button>
                 <Button variant="outline" className="h-auto p-4 justify-start">
                   <div className="text-left">
                     <div className="font-medium">Due Reminder</div>
-                    <div className="text-sm text-muted-foreground">Book return reminder</div>
+                    <div className="text-sm text-muted-foreground">
+                      Book return reminder
+                    </div>
                   </div>
                 </Button>
               </div>
@@ -287,7 +392,9 @@ export function Notices() {
           <Card>
             <CardHeader>
               <CardTitle>Automatic Alert System</CardTitle>
-              <CardDescription>Configure automatic notifications for students</CardDescription>
+              <CardDescription>
+                Configure automatic notifications for students
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -299,7 +406,8 @@ export function Notices() {
                       Automatic reminders for upcoming due dates
                     </p>
                     <div className="text-xs text-muted-foreground">
-                      Sent 3 days before due date • 245 students notified this month
+                      Sent 3 days before due date • 245 students notified this
+                      month
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -337,7 +445,8 @@ export function Notices() {
                       Notify students when reserved books are available
                     </p>
                     <div className="text-xs text-muted-foreground">
-                      Sent when book becomes available • 12 reservations this month
+                      Sent when book becomes available • 12 reservations this
+                      month
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -373,19 +482,25 @@ export function Notices() {
                 <Card>
                   <CardContent className="p-4">
                     <div className="text-2xl font-bold">1,245</div>
-                    <div className="text-sm text-muted-foreground">Alerts Sent Today</div>
+                    <div className="text-sm text-muted-foreground">
+                      Alerts Sent Today
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4">
                     <div className="text-2xl font-bold">98%</div>
-                    <div className="text-sm text-muted-foreground">Delivery Rate</div>
+                    <div className="text-sm text-muted-foreground">
+                      Delivery Rate
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4">
                     <div className="text-2xl font-bold">45</div>
-                    <div className="text-sm text-muted-foreground">Pending Notifications</div>
+                    <div className="text-sm text-muted-foreground">
+                      Pending Notifications
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -415,22 +530,32 @@ export function Notices() {
                 <TableBody>
                   {expiredNotices.map((notice) => (
                     <TableRow key={notice.id}>
-                      <TableCell className="font-medium">{notice.title}</TableCell>
+                      <TableCell className="font-medium">
+                        {notice.title}
+                      </TableCell>
                       <TableCell>
                         <Badge variant={getTypeVariant(notice.type)}>
                           {notice.type}
                         </Badge>
                       </TableCell>
-                      <TableCell>{notice.startDate.toLocaleDateString()}</TableCell>
                       <TableCell>
-                        {notice.endDate ? notice.endDate.toLocaleDateString() : 'N/A'}
+                        {notice.startDate.toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        {notice.endDate
+                          ? notice.endDate.toLocaleDateString()
+                          : "N/A"}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">Expired</Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex space-x-2">
-                          <Button variant="outline" size="sm" onClick={() => handleToggleActive(notice.id)}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleToggleActive(notice.id)}
+                          >
                             <Eye className="w-4 h-4 mr-1" />
                             Activate
                           </Button>

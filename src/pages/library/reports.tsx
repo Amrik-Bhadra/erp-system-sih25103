@@ -206,7 +206,7 @@ export function Reports() {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {categoryDistribution.map((entry, index) => (
+                      {categoryDistribution.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -346,7 +346,7 @@ export function Reports() {
                   <h3 className="font-semibold">Popular Categories</h3>
                   <div className="space-y-2">
                     {categoryDistribution.map((category, index) => (
-                      <div key={category.name} className="flex items-center justify-between">
+                      <div key={index} className="flex items-center justify-between">
                         <span className="text-sm">{category.name}</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-32 bg-gray-200 rounded-full h-2">

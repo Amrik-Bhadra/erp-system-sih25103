@@ -203,9 +203,6 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyOtpPage from "./pages/auth/VerifyOtpPage";
 
-// import AdminLayout from "@/layouts/AdminLayout";
-// import NewAdmission from "./pages/admin/NewAdmission";
-
 import HostelLayout from "./layouts/HostelLayout";
 import HostelDasboard from "./pages/hostel/HostelDasboard";
 import HostelApplication from "./pages/hostel/HostelApplication";
@@ -235,6 +232,13 @@ import StudentCertificates from "./pages/student/StudentCertificates";
 import StudentSettings from "./pages/student/StudentSettings";
 import LandingPage from "./pages/LandingPage";
 
+import AdmissionLayout from "./layouts/AdmissionLayout";
+import AdmissionDashboard from "./pages/admission/AdmissionDashboard";
+import NewAdmission from "./pages/admission/NewAdmission";
+import AdmittedList from "./pages/admission/AdmittedList";
+// import AdmissionLayout from "./layouts/AdmissionLayout";
+
+
 // 🔹 Library imports
 import {LibraryLayout} from "./layouts/LibraryLayout";
 import {LibraryDashboard} from "./pages/library/dashboard";
@@ -260,7 +264,7 @@ import { AdmissionNotices } from "./pages/admission/AdmissionNotices";
 import { AdmissionSettings } from "./pages/admission/AdmissionSettings";
 
 const App = () => {
-  // 🔹 Hostel Routes
+  // Hostel Routes
   const hostelRoutes = [
     {
       path: "/hostel",
@@ -399,6 +403,12 @@ const App = () => {
             ))}
           </Route>
         ))}
+
+        <Route path="/admission" element={<AdmissionLayout/>}>
+          <Route index element={<AdmissionDashboard/>} />
+          <Route path="new" element={<NewAdmission/>} />
+          <Route path="admitted-list" element={<AdmittedList/>} />
+        </Route>
 
         {/* 🔹 Library Routes */}
         {libraryRoutes.map((route) => (

@@ -239,29 +239,76 @@ import { Book, Home, Users, School, UserCheck } from "lucide-react";
 const LandingPage = () => {
     const navigate = useNavigate();
     
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 space-y-8">
-      {/* Header Section */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center space-x-3">
-          <School className="w-12 h-12 text-blue-600 dark:text-blue-400" />
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            College ERP System
-          </h1>
-        </div>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-          Streamlined management system for students, hostels, library, and admissions
-        </p>
-      </div>
+    return (
+        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 via-white to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 space-y-12 p-6 relative overflow-hidden">
+            {/* Enhanced Animated Background */}
+            <div className="absolute inset-0 overflow-hidden">
+                {/* Animated gradient orbs */}
+                <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute top-40 right-20 w-96 h-96 bg-purple-400/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                <div className="absolute bottom-40 left-20 w-80 h-80 bg-green-400/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+                <div className="absolute bottom-20 right-10 w-64 h-64 bg-orange-400/7 rounded-full blur-3xl animate-pulse delay-1500"></div>
+                
+                {/* Floating academic icons with trails */}
+                <div className="absolute top-1/4 left-1/6 animate-float-slow">
+                    <div className="relative">
+                        <GraduationCap className="w-10 h-10 text-blue-500/60" />
+                        <div className="absolute inset-0 w-10 h-10 bg-blue-500/20 rounded-full blur-sm animate-ping"></div>
+                    </div>
+                </div>
+                <div className="absolute top-1/3 right-1/5 animate-float-medium delay-1000">
+                    <div className="relative">
+                        <Library className="w-8 h-8 text-purple-500/60" />
+                        <div className="absolute inset-0 w-8 h-8 bg-purple-500/20 rounded-full blur-sm animate-ping"></div>
+                    </div>
+                </div>
+                <div className="absolute bottom-1/3 left-1/4 animate-float-fast delay-500">
+                    <div className="relative">
+                        <Building className="w-12 h-12 text-green-500/60" />
+                        <div className="absolute inset-0 w-12 h-12 bg-green-500/20 rounded-full blur-sm animate-ping"></div>
+                    </div>
+                </div>
+                <div className="absolute bottom-1/4 right-1/6 animate-float-slow delay-1500">
+                    <div className="relative">
+                        <Users className="w-9 h-9 text-orange-500/60" />
+                        <div className="absolute inset-0 w-9 h-9 bg-orange-500/20 rounded-full blur-sm animate-ping"></div>
+                    </div>
+                </div>
 
-      {/* Portal Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full px-4">
-        
-        {/* Student Portal Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 dark:border-gray-700">
-          <div className="flex flex-col items-center text-center space-y-4">
-            <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-              <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                {/* Animated grid pattern */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black_40%,transparent_100%)]"></div>
+            </div>
+
+            {/* Enhanced Header Section */}
+            <div className="text-center space-y-6 relative z-10 max-w-4xl">
+                <div className="space-y-4">
+                    <h1 className="text-5xl md:text-6xl font-bold dark:text-gray-100 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        EduManage Pro
+                    </h1>
+                    <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light">
+                        Comprehensive College ERP Solution
+                    </p>
+                </div>
+                
+                {/* ERP Key Highlights */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+                    <div className="flex flex-col items-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+                        <Shield className="w-8 h-8 text-green-500 mb-2" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Secure</span>
+                    </div>
+                    <div className="flex flex-col items-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+                        <Zap className="w-8 h-8 text-blue-500 mb-2" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Efficient</span>
+                    </div>
+                    <div className="flex flex-col items-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+                        <Clock className="w-8 h-8 text-purple-500 mb-2" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">24/7 Access</span>
+                    </div>
+                    <div className="flex flex-col items-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700">
+                        <BookOpen className="w-8 h-8 text-orange-500 mb-2" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Integrated</span>
+                    </div>
+                </div>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Student Portal
@@ -362,12 +409,37 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Footer Note */}
-      <div className="text-center text-gray-500 dark:text-gray-400 text-sm">
-        <p>Secure • Reliable • Efficient College Management System</p>
-      </div>
-    </div>
-  );
+            {/* Footer */}
+            <div className="text-center text-gray-500 dark:text-gray-400 text-sm relative z-10">
+                <p>© 2024 EduManage Pro - College ERP System </p>
+            </div>
+
+            {/* Enhanced Custom Animations */}
+            <style>{`
+                @keyframes float-slow {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-25px) rotate(5deg); }
+                }
+                @keyframes float-medium {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(-3deg); }
+                }
+                @keyframes float-fast {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-15px) rotate(2deg); }
+                }
+                .animate-float-slow {
+                    animation: float-slow 8s ease-in-out infinite;
+                }
+                .animate-float-medium {
+                    animation: float-medium 6s ease-in-out infinite;
+                }
+                .animate-float-fast {
+                    animation: float-fast 4s ease-in-out infinite;
+                }
+            `}</style>
+        </div>
+    );
 };
 
 export default LandingPage;

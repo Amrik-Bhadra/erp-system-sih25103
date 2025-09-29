@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BedDouble,
@@ -8,19 +8,21 @@ import {
   GalleryVerticalEnd,
   Settings2,
   BookOpen,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/admin/nav-main"
-// import { NavProjects } from "@/components/nav-projects"  
-import { NavUser } from "@/components/admin/nav-user"
-import { TeamSwitcher } from "@/components/admin/team-switcher"
+import { NavMain } from "@/components/admin/nav-main";
+// import { NavProjects } from "@/components/nav-projects"
+import { NavUser } from "@/components/admin/nav-user";
+// import { TeamSwitcher } from "@/components/admin/team-switcher";
+import Logo from '/erp.png';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 
 // This is sample data.
 const data = {
@@ -99,7 +101,6 @@ const data = {
           title: "Hostel List",
           url: "#",
         },
-        
       ],
     },
     {
@@ -110,7 +111,7 @@ const data = {
         {
           title: "Dashboard",
           url: "#",
-        },        
+        },
       ],
     },
     {
@@ -154,13 +155,23 @@ const data = {
   //     icon: Map,
   //   },
   // ],
-}
+};
 
 const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Link to={'/'} className="flex items-center gap-2 border p-1">
+          <div className="flex aspect-square items-center justify-center rounded-lg">
+            <img src={Logo} className="w-10" />
+          </div>
+          <div className="grid text-left text-sm leading-tight">
+            <span className="truncate text-lg font-semibold">EduManager</span>
+            <span className="truncate text-sm text-[#ccc] font-medium">
+              Admin
+            </span>
+          </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
@@ -172,6 +183,6 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       <SidebarRail />
     </Sidebar>
   );
-}
+};
 
 export default AppSidebar;

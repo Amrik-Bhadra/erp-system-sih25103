@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Search, Save, Plus, Trash2, Edit, Users, Book, Bell, Settings as SettingsIcon, Download, Upload } from "lucide-react";
+import { Save, Plus, Trash2, Edit, Users, Bell, Download, Upload } from "lucide-react";
 
 export function Settings() {
   const [activeTab, setActiveTab] = useState("borrowing");
@@ -18,7 +18,7 @@ export function Settings() {
   ]);
   const [newCategory, setNewCategory] = useState("");
   
-  const [userRoles, setUserRoles] = useState([
+  const [userRoles, ] = useState([
     { id: 1, name: "Admin", permissions: ["all"], users: 2 },
     { id: 2, name: "Librarian", permissions: ["books", "issues", "students", "fines"], users: 5 },
     { id: 3, name: "Assistant Librarian", permissions: ["books", "issues"], users: 8 },
@@ -292,7 +292,7 @@ export function Settings() {
                   </TableHeader>
                   <TableBody>
                     {categories.map((category, index) => (
-                      <TableRow key={category}>
+                      <TableRow key={index}>
                         <TableCell className="font-medium">{category}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{Math.floor(Math.random() * 50) + 10}</Badge>
@@ -496,7 +496,7 @@ export function Settings() {
                 </div>
                 <Switch 
                   checked={notificationSettings.emailNotifications}
-                  onCheckedChange={(checked: any) => setNotificationSettings({
+                  onCheckedChange={(checked) => setNotificationSettings({
                     ...notificationSettings, 
                     emailNotifications: checked
                   })}
@@ -512,7 +512,7 @@ export function Settings() {
                 </div>
                 <Switch 
                   checked={notificationSettings.smsNotifications}
-                  onCheckedChange={(checked: any) => setNotificationSettings({
+                  onCheckedChange={(checked) => setNotificationSettings({
                     ...notificationSettings, 
                     smsNotifications: checked
                   })}
@@ -562,7 +562,7 @@ export function Settings() {
                 </div>
                 <Switch 
                   checked={notificationSettings.autoSendOverdue}
-                  onCheckedChange={(checked: any) => setNotificationSettings({
+                  onCheckedChange={(checked) => setNotificationSettings({
                     ...notificationSettings, 
                     autoSendOverdue: checked
                   })}

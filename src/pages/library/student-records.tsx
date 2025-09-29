@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, User, Book, CreditCard, History, CheckCircle, XCircle } from "lucide-react";
+import { Search, User, CreditCard, CheckCircle, XCircle } from "lucide-react";
 import { mockStudents, mockBorrowRecords, mockFines } from "@/data/mockData";
 
 export function StudentRecords() {
@@ -30,9 +30,9 @@ export function StudentRecords() {
     return mockFines.filter(fine => fine.studentId === studentId);
   };
 
-  const getBorrowingHistory = (studentId: string) => {
-    return mockBorrowRecords.filter(record => record.studentId === studentId);
-  };
+  // const getBorrowingHistory = (studentId: string) => {
+  //   return mockBorrowRecords.filter(record => record.studentId === studentId);
+  // };
 
   return (
     <div className="p-6 space-y-6">

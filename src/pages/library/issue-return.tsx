@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Scan, RefreshCw, CheckCircle, XCircle, Clock } from "lucide-react";
-import { mockBooks, mockStudents, mockBorrowRecords } from "@/data/mockData";
+import { Search, Scan, RefreshCw, CheckCircle, XCircle } from "lucide-react";
+import { mockStudents, mockBorrowRecords } from "@/data/mockData";
 
 export function IssueReturn() {
   const [activeTab, setActiveTab] = useState("issue");

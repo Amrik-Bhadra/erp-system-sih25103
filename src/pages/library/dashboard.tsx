@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Book, Users, AlertTriangle, DollarSign, Plus, ArrowUpRight } from "lucide-react";
+import { Book, Users, AlertTriangle, DollarSign, Plus } from "lucide-react";
 import { mockStats, mockBorrowRecords, mockNotices } from "@/data/mockData";
 
 export function LibraryDashboard() {
